@@ -1,7 +1,8 @@
+import datetime
 import json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
-from . models import pacientes , medicos , signos_vitales, historias_clinicas, historias_signos
+from . models import pacientes , medicos , signos_vitales , historias_clinicas, historias_signos
 
 # Create your views here.
 
@@ -20,8 +21,7 @@ def newPaciente(request):
         try:
             data = json.loads(request.body)
             paciente = pacientes(
-           # id_paciente = data['id_paciente'],
-           #id = data['id'],
+            id_paciente = data['id_paciente'], #?
             nombre = data['nombre'],
             direccion= data['direccion'],
             telefono= data['telefono'],
@@ -42,6 +42,7 @@ def newMedico(request):
         try:
             data = json.loads(request.body)
             medico = medicos(
+            id_medico = data['id_medico'], #?
             nombre = data['nombre'],
             direccion= data['direccion'],
             telefono= data['telefono'],
@@ -74,42 +75,48 @@ def newSigno(request):
         HttpResponseNotAllowed (['POST'], 'metodo invalido')          
 
 
-# historia clinica
+#historia clinica
 
-# def newHistoriaClinica(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#             historia_clica = historias_clinicas(
-#             id_paciente = data['id_paciente'],
-#             id_medico= data['id_medico'],
-#             fecha= data['fecha'],
-#             observaciones = data['observaciones'],
-#             recomendaciones = data['recomendaciones']
-#             )
-#             historia_clica.save()
-#             return HttpResponse("nuevo historia clinica agragada")
-#         except:
-#             HttpResponseBadRequest ("error en los datos enviados")
-#     else:
-#         HttpResponseNotAllowed (['POST'], 'metodo invalido')          
+def newHistoriaClinica(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            pac = pacientes.objects.filter(id_paciente = data["id_paciente"]).first() # se trae el id del paciente que queremos
+            med = medicos.objects.filter(id_medico = data["id_medico"]).first() # se trae el id del paciente que queremos
+            historia_clica = historias_clinicas(
+            fecha= datetime.datetime.now(), #?
+            id_paciente = pac,
+            id_medico= med,          
+            observaciones = data['observaciones'],
+            recomendaciones = data['recomendaciones']
+            )
+            historia_clica.save()
+            return HttpResponse("nuevo historia clinica agragada")
+        except:
+            HttpResponseBadRequest ("error en los datos enviados")
+    else:
+        HttpResponseNotAllowed (['POST'], 'metodo invalido')          
 
-# def newHitoriaSigno(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#             historia_signo = historias_signos(
-#             fecha= data['fecha'],
-#             id_paciente = data['id_paciente'],
-#             id_signo= data['id_signo'],            
-#             valor_signo = data['valor_signo']            
-#             )
-#             historia_signo.save()
-#             return HttpResponse("nuevo historia signo agragada")
-#         except:
-#             HttpResponseBadRequest ("error en los datos enviados")
-#     else:
-#         HttpResponseNotAllowed (['POST'], 'metodo invalido')               
+# historia signos
+
+def newHistoriaSigno(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            pac = pacientes.objects.filter(id_paciente = data["id_paciente"]).first() # se trae el id del paciente que queremos
+            sig = signos_vitales.objects.filter(id_signo = data["id_signo"]).first() # se trae el id de signo que queremos
+            historia_signo = historias_signos(
+            fecha= datetime.datetime.now(), #?
+            id_paciente = pac,
+            id_signo= sig,            
+            valor_signo = data['valor_signo']            
+            )
+            historia_signo.save()
+            return HttpResponse("nuevo historia signo agragada")
+        except:
+            HttpResponseBadRequest ("error en los datos enviados")
+    else:
+        HttpResponseNotAllowed (['POST'], 'metodo invalido')               
 
 
 
@@ -179,6 +186,8 @@ def getAllSignos(request):
     else:
         return HttpResponseNotAllowed(['GET'], "Método inválido")
 
+
+  
 
 #---------------------------------------------------------------------------------------    
 ########################### VISTAS PARA ACTUALIZAR DATOS  (UPDATE) #############################

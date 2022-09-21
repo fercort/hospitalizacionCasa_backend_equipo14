@@ -7,7 +7,7 @@ urlpatterns = [
    path('newMedico/', views.newMedico),
    path('newSigno/', views.newSigno),
    path('newHistoriaClinica/', views.newHistoriaClinica),
-   path('newPaciente/', views.newHitoriaSigno),
+   path('newHistoriaSigno/', views.newHistoriaSigno),
    path('getAllPacientes/', views.getAllPacientes),
    path('getAllMedicos/', views.getAllMedicos),
    path('getAllSignos/', views.getAllSignos),
