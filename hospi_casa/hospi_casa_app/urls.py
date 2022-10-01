@@ -17,5 +17,8 @@ urlpatterns = [
    path('deletePaciente/<int:id_paciente>', views.deletePaciente),
    path('deleteMedico/<int:id_medico>', views.deleteMedico),
    path('deleteSigno/<int:id_signo>', views.deleteSigno),
+   path('getOnePaciente/<int:id_paciente>', views.getOnePaciente),
+   path('login/', views.login),
+   
    
 ]

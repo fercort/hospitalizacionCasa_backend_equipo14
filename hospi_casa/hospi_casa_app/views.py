@@ -19,7 +19,11 @@ def inicio(request):
 def newPaciente(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
+            data = json.loads(request.body)            
+           # paciente = pacientes.objects.filter(id = data['id_paciente']).first() # pendiente 
+            # if (paciente):
+            #     return HttpResponseBadRequest("Ya existe paciente con esa cédula.")
+                        
             paciente = pacientes(
             id_paciente = data['id_paciente'], #?
             nombre = data['nombre'],
@@ -123,6 +127,34 @@ def newHistoriaSigno(request):
 #---------------------------------------------------------------------------------------    
 ########################### VISTAS PARA LEER DATOS  (READ) #############################
 #---------------------------------------------------------------------------------------    
+
+# obtener un paciente
+
+def getOnePaciente(request, id_paciente):    
+    if request.method == 'GET':
+        paciente = pacientes.objects.filter (id_paciente = id_paciente).first()
+        if (not paciente):
+            return HttpResponseBadRequest('No existe paciente con esa cedula')
+
+        # medicoss = medicos.objects.filter( paciente = id_paciente)
+        # medicosData = []
+        # for med in medicoss:
+        #     data = {"nombre": med.nombre, "telefono":med.telefono }
+        #     medicosData.append(data)    
+
+        data = {"id_paciente": paciente.id_paciente, "nombre": paciente.nombre, "direccion":paciente.direccion, 
+            "telefono": paciente.telefono, "contacto":paciente.contacto, "telefono_contacto":paciente.telefono_contacto}
+            #,"medico": medicosData }
+
+        dataJson= json.dumps(data)
+        resp = HttpResponse()
+        resp.headers['Content-Type'] = "text/json"
+        resp.content = dataJson
+        return resp
+    else:
+        return HttpResponseNotAllowed (['GET'], 'metodo no valido')
+
+
 
 # pacientes
 def getAllPacientes(request):
@@ -304,3 +336,28 @@ def deleteSigno(request, id_signo):
             return HttpResponseBadRequest("Error en los datos enviados")
     else:
         return HttpResponseNotAllowed(['DELETE'], "Método inválido")
+
+###########
+
+#login
+def login(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            id_medico = data['id_medico']
+            nombre = data['nombre']
+
+            medico = medicos.objects.filter(id_medico = id_medico, nombre = nombre).first()  
+            if (not medico):
+                return HttpResponse("Credenciales invalidas", status = 401)
+            
+            medData ={"id_medico" : medico.id_medico} 
+            resp = HttpResponse()
+            resp.headers['Content-Type']= "text/json"
+            resp.content= json.dumps(medData)
+            return resp
+           
+        except:
+            HttpResponseBadRequest ("error en los datos enviados")
+    else:
+        HttpResponseNotAllowed (['POST'], 'metodo invalido')

@@ -1,0 +1,1 @@
+web: gunicorn hospi_casa.wsgi

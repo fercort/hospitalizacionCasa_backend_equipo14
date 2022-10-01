@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-3m#3!3#fpb9&iaj#g8oa=r#*yxni_r49ygxig-*@+q0obb&o$!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] #  soluciona  problema de CORS. Asterisco * significa que cualquier cliente pude aceder a mi backend
+
+CORS_ALLOW_ALL_ORIGINS = True  # soluciona  problema de CORS.
+CORS_ALLOW_ALL_CREDENTIALS = True # soluciona  problema de CORS.
+
 
 
 # Application definition
@@ -37,13 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hospi_casa_app'
+    'corsheaders', # soluciona  problema de CORS
+    'hospi_casa_app',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # soluciona  problema de CORS
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -74,12 +80,25 @@ WSGI_APPLICATION = 'hospi_casa.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# conectar a la base de datos de postgre en heroku
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd8tltjfi1478ll',
+        'USER': 'emgnngpaoagbgf',
+        'PASSWORD': '7c323c473eb059c8130dff5edf5c9000c8cbdbe7c44089ab5605b167b36a80fc',
+        'HOST': 'ec2-52-73-184-24.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -122,3 +141,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# lineas para que corra en heroku
+import django_heroku
+django_heroku.settings(locals())
