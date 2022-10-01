@@ -4,13 +4,17 @@ function getPacientes() {
   // Petición HTTP
   //fetch('https://proy-001.herokuapp.com/getAllCustomers/')
   //fetch('https://proy-001.herokuapp.com/getAllCustomers/')
-  fetch('https://hopitalizacion-casa.herokuapp.com/getAllPacientes/')
+  
   //fetch('http://127.0.0.1:8000/getAllMedicos/')
+  fetch('https://hopitalizacion-casa.herokuapp.com/getAllPacientes/')
+  //fetch('https://hopitalizacion-casa.herokuapp.com/getOnePaciente/123')
+  //fetch('https://hopitalizacion-casa.herokuapp.com/getOnePaciente')
+
 
     .then(response => {
       console.log(response);
       if (response.ok)
-        return response.text()
+        return  response.text()
       else
         throw new Error(response.status);
     })

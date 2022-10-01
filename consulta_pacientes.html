@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Su salud</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="estilos.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="header">
-        <h1>Hospitalizacion en casa</h1>
+        <h1>Hospitalización en casa</h1>
+        <img src="https://www.esic.edu/sites/default/files/rethink/2dd51396-salud-digital.jpg" alt="luz" width="180" height="180" >
+
         <nav>
-            <button>Iniciar Sesión</button>
-            <a href="registro.html"><button>Registrarse</button></a>
+            <!-- <button style="color: black;">Iniciar Sesión</button> -->
+            <a href="login.html"><button style="color: black;" >Iniciar Sesión</button></a>
+            <a href="registro.html"><button style="color: black;">Registrarse</button></a>
         </nav>
     </div>
 
@@ -22,13 +25,14 @@
         <h2>Listado de pacientes</h2>
         <div id="info-pacientes">
             <div id="cargando">Cargando...</div>
-        </div>
+        </div>        
     </div>
+   
         
     <footer>
         <h2>Misión TIC 2022</h2>
     </footer>
 
-    <script src="consulta_clientes.js"></script>
+    <script src="js/consulta_pacientes.js"></script>
 
 </body>

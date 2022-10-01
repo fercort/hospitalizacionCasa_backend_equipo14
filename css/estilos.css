@@ -3,21 +3,24 @@ body{
 }
 
 .header{
-    margin: 0%;
+    margin: 2%;
     padding: 0;
-    width: 100%;
+    width: 95%;
     height: 10vh;
     min-height: 100px;
-    background-color: #283747 ;
-    color:#E5E7E9 ;
+    background-color: #00FFFF;
+    color:#e9e6e5 ;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .header h1{
-    width: 20%;
-    text-align: center;
+    width: 30%;
+    text-align:center;
+    color: black;
+    margin: 5%;
+    
 }
 
 .header nav {
@@ -31,9 +34,9 @@ body{
 
 .header nav button{
     color: #E5E7E9;
-    background: #283747;
-    border: 1px solid #E5E7E9;
-    border-radius: 5px;
+    background: #00CED1;
+    border: 1px solid black;
+    border-radius: 10px;
     padding: 10px 20px;
 }
 
@@ -43,12 +46,34 @@ body{
     border: 1px solid #E5E7E9;
 }
 
+.main-component{
+    background-color: #00FFFF;
+    text-align:center; 
+    margin: 3%;
+    
+}
+
+.main-component h2{
+    width: 35%;
+    text-align:center;
+    color: black;
+    margin: 2%;
+}
+
+#info-pacientes{
+    color: black;
+    background-color: #00CED1;    ;
+    text-align:center; 
+    margin: 5%;
+    width: 30%;
+}
+
 footer{
     margin: 0;
     padding: 0;
     width: 100%;
     height: 10vh;
-    background-color: #283747;
+    background-color:white;
     color: #E5E7E9;
     position: fixed;
     bottom: 0;
@@ -58,6 +83,7 @@ footer h2{
     width: 100%;
     height: 100%;
     text-align: center;
+    color:black;
 }
  
 .signUp_user{
@@ -70,7 +96,7 @@ footer h2{
 }
 
 .container_signUp_user {
-    border: 3px solid #283747;
+    border: 3px solid #00CED1;
     border-radius: 10px;
     width: 25%;
     height: 60%;
@@ -81,7 +107,7 @@ footer h2{
 }
 
 .signUp_user h2{
-    color: #283747;
+    color: #00CED1;
 }
 
 .signUp_user form{
@@ -94,14 +120,14 @@ footer h2{
     box-sizing: border-box;
     padding: 10px 20px;
     margin: 5px 0;
-    border: 1px solid #283747;
+    border: 1px solid #00CED1;
 }
 
 .signUp_user input[type='submit']{
     width: 100%;
     height: 40px;
     color: #E5E7E9;
-    background: #283747;
+    background: #00CED1;
     border: 1px solid #E5E7E9;
     border-radius: 5px;
     padding: 10px 25px;
@@ -111,5 +137,5 @@ footer h2{
 .signUp_user input[type='submit']:hover{
     color: #E5E7E9;
     background: crimson;
-    border: 1px solid #283747;
+    border: 1px solid #00CED1;
 } 

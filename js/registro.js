@@ -1,15 +1,35 @@
 
 newPacienteUrl = 'https://hopitalizacion-casa.herokuapp.com/newPaciente/'
 
+// funcion para solo permitir letras en lugar de numeros en la casilla de nombre 
+function validate_names(val) {
+    const letters = /^[A-Z a-zÁÉÍÓÚáéíóúñ]+$/;
+    if (val.match(letters))
+        return true;
+    else
+        return false;
+}
+
+
+
+
 function collectData(evt){
     evt.preventDefault();
 
     const id_paciente = document.registro.id_paciente.value;
-    const nombre = document.registro.nombre.value;
-    const direccion = document.registro.direccion.value;
-    const telefono = document.registro.telefono.value;
-    const contacto = document.registro.contacto.value;
+    const nombre = document.registro.nombre.value.trim(); // metodo trim() elimina los espacios inicial y final
+    const direccion = document.registro.direccion.value.trim();
+    const telefono = document.registro.telefono.value.trim();
+    const contacto = document.registro.contacto.value.trim();
     const telefono_contacto = document.registro.telefono_contacto.value; 
+
+    result = validate_names(nombre);
+    if (!result) {
+        alert('Nombre no es válido');
+        return;
+    }
+
+
 
     const paciente ={
         id_paciente : id_paciente,
