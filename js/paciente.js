@@ -1,7 +1,10 @@
 
 function getPaciente() {
     const urlpaciente = 'https://hopitalizacion-casa.herokuapp.com/getOnePaciente/';
-    const id = 123;
+    //const id = 123;
+    const parsedUrl = new URL(window.location.href);
+    //console.log(parsedUrl);
+    const id = parsedUrl.searchParams.get("id");
   // Petición HTTP
   //fetch('https://proy-001.herokuapp.com/getAllCustomers/')
 
